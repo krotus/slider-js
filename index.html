@@ -3,8 +3,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Sample Slider</title>
+	<link rel="stylesheet" href="src/res/css/styles.css">
+	<script src="src/res/js/jquery_311.js"></script>
+	<script src="src/app/slider.js"></script>
+	<script>
+	var slaider = null;
+	$(document).ready(function(){
+		slaider = new Slider({
+			"images": [
+				"src/res/imgs/slider1.jpg",
+				"src/res/imgs/slider2.jpg",
+				"src/res/imgs/slider3.jpg"
+			],
+			"pagination": true,
+			"delay": 1000,
+		});
+		//slider.addImage('src/res/imgs/slider1.jpg');
+		//slider.addImage('src/res/imgs/slider2.jpg');
+		//slider1.addImage('src/res/imgs/slider3.jpg');
+		console.log(slaider)
+	});
+	</script>
 </head>
 <body>
-	
+	<div id="slider">
+	</div>
 </body>
 </html>
