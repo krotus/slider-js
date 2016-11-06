@@ -4,9 +4,9 @@ var Slider = function(build){
 		"files": [],
 		"size": 0
 	};
-
 	this.pagination = true;
 	this.delay 		= 1000;
+	this.height		= 450;
 
 	if(build instanceof Object){
 		if(build.images && build.images instanceof Array){
@@ -38,18 +38,19 @@ var Slider = function(build){
 		this.images.size--;
 	}
 
-	this.createDOM = function(){
+	this.render = function(){
 		var html = generateHTML();
 		$("#slider").append(html);
 	}
 
-	this.changeImage = function(){
+	this.update = function(){
 		setInterval(function(){
 			var position = 0;
 			var lastPosition = that.images.size - 1;
 			$("div.item").each(function(index){
 				if($(this).hasClass('active')){
 					$(this).removeClass('active');
+					$("ul li span.dot").eq(index).removeClass('current-dot');
 					position = index;
 					if(position == lastPosition){
 						position = 0;
@@ -59,13 +60,17 @@ var Slider = function(build){
 				}
 				
 			});
+			//image to show
 			$("div.item").eq(position).addClass('active');
+			//pagination
+			$("ul li span.dot").eq(position).addClass('current-dot');
 		}, this.delay);
 	}
 
 	var generateHTML = function(){
 		var html = "<div id='slider-items'>";
-		for(var i = 0; i < that.images.files.length; i++){
+		//item for each images
+		for(var i = 0; i < that.images.size; i++){
 			if(i == 0) {
 				html += "<div class='item active'>";	
 			}else{
@@ -74,13 +79,24 @@ var Slider = function(build){
 			html += "<img src='" + that.images.files[i] + "'>"
 			html += "</div>";
 		}
+		//pagination style for each image
+		html += "<ul class='pagination'>";
+		for (var i = 0; i < that.images.size; i++) {
+			if(i == 0){
+				html += "<li><span class='dot current-dot'></span></li>";
+			}else{
+				html += "<li><span class='dot'></span></li>";
+			}
+		}
+		html += "</ul>";
+		
 		html += "</div>";
 		return html;
 	}
 
 	this.init = function(){
-		this.createDOM();
-		this.changeImage();
+		this.render();
+		this.update();
 	}
 
 	this.init();

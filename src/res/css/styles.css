@@ -1,5 +1,6 @@
 #slider-items{
 	position: relative;
+	height: 450px;
 }
 .item{
 	height: 450px;
@@ -15,4 +16,34 @@
 
 img{
 	width: 100%;
+}
+
+ul.pagination{
+	position: absolute;
+    left: 0;
+    right: 0;
+    bottom:0;
+    z-index: 15;
+    text-align: center;
+    list-style: none;
+}
+
+ul.pagination li{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 3px;
+    text-indent: -999px;
+}
+
+.dot{
+    cursor: pointer;
+	border: 2px solid #fff;
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    display: block;
+}
+.current-dot{
+	background-color: #000;
 }
