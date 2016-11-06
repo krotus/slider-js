@@ -47,3 +47,36 @@ ul.pagination li{
 .current-dot{
 	background-color: #000;
 }
+
+div.controls{
+	position: absolute;
+	top:50%;
+	left: 0;
+	width: 100%;
+}
+
+div.controls span.next{
+	background: url(../imgs/next.png) no-repeat;
+	float: right;
+	margin-right: 10px;
+}
+div.controls span.prev{
+	background: url(../imgs/prev.png) no-repeat;
+	float: left;
+	margin-left: 10px;
+}
+
+div.controls span{
+    margin-top:-25px;
+    display: block;
+    border-radius: 100%;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    transition: 0.3s all;
+}
+
+div.controls span:hover{
+    background-color: rgba(0,0,0,0.2) !important;
+}
+	

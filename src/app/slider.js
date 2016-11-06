@@ -91,6 +91,12 @@ var Slider = function(build){
 			}
 		}
 		html += "</ul>";
+
+		//control page
+		html += "<div class='controls'>";
+		html +=		"<span class='prev'></span>";
+		html +=		"<span class='next'></span>";
+		html +=	"</div>";
 		
 		html += "</div>";
 		return html;
@@ -107,7 +113,35 @@ var Slider = function(build){
 			$("div.item").eq($(this).data("image")).addClass('active');
 			clearInterval(timer);
 			that.update();
-		})
+		});
+
+		//controls
+		$(document).on("click", "div.controls span", function(e){
+			e.preventDefault();
+			var currentImage = parseInt($("span.dot.current-dot").data("image"));
+			var followImage = null;
+			var lastImage = that.images.size - 1;
+			
+			if($(this).hasClass("prev")){ //prev
+				if(currentImage == 0){
+					followImage = lastImage;
+				}else{
+					followImage = currentImage - 1;
+				}
+			}else{ //next
+				if(currentImage == lastImage){
+					followImage = 0;
+				}else{
+					followImage = currentImage + 1;
+				}
+			}
+			$("span.dot").removeClass("current-dot");
+			$("div.item").removeClass("active");
+			$("span.dot").eq(followImage).addClass("current-dot");
+			$("div.item").eq(followImage).addClass("active");
+			clearInterval(timer);
+			that.update();
+		});
 	}
 
 	this.init = function(){
