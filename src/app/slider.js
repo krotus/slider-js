@@ -8,6 +8,8 @@ var Slider = function(build){
 	this.delay 		= 1000;
 	this.height		= 450;
 
+	var timer = null;
+
 	if(build instanceof Object){
 		if(build.images && build.images instanceof Array){
 			this.images.files = build.images;
@@ -44,7 +46,7 @@ var Slider = function(build){
 	}
 
 	this.update = function(){
-		setInterval(function(){
+		timer = setInterval(function(){
 			var position = 0;
 			var lastPosition = that.images.size - 1;
 			$("div.item").each(function(index){
@@ -83,9 +85,9 @@ var Slider = function(build){
 		html += "<ul class='pagination'>";
 		for (var i = 0; i < that.images.size; i++) {
 			if(i == 0){
-				html += "<li><span class='dot current-dot'></span></li>";
+				html += "<li><span data-image='" + i + "' class='dot current-dot'></span></li>";
 			}else{
-				html += "<li><span class='dot'></span></li>";
+				html += "<li><span data-image='" + i + "' class='dot'></span></li>";
 			}
 		}
 		html += "</ul>";
@@ -94,9 +96,24 @@ var Slider = function(build){
 		return html;
 	}
 
+	this.setEvents = function(){
+
+		//pagination
+		$(document).on("click", "span.dot", function(e){
+			e.preventDefault();
+			$("span.dot").removeClass("current-dot");
+			$("div.item").removeClass("active");
+			$(this).addClass("current-dot");
+			$("div.item").eq($(this).data("image")).addClass('active');
+			clearInterval(timer);
+			that.update();
+		})
+	}
+
 	this.init = function(){
 		this.render();
 		this.update();
+		this.setEvents();
 	}
 
 	this.init();
